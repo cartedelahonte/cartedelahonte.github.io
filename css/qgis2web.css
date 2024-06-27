@@ -35,7 +35,9 @@
             vertical-align: top;
             min-width: 75px;
         }
-        .leaflet-popup-content td {
+        .leaflet-popup-content td :first-of-type(2){
+            color: red;
+            text-transform: uppercase;
             min-width: 75px;
         }
         .leaflet-popup-content td img {
