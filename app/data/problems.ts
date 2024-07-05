@@ -8,6 +8,7 @@ const problemMapping: {[key: string]: string} = {
   'homophobie': 'homophobe',
   'fraude': 'coupable de fraude',
   'opposé aux droits des femmes ': 'opposé aux droits des femmes',
+  'violence': 'violent',
 };
 
 export const problemFeatures = [
