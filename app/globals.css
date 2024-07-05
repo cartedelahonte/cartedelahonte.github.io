@@ -10,3 +10,7 @@ body {
 @layer utilities {
 
 }
+
+.leaflet-container {
+  height: 100%;
+}
