@@ -1,5 +1,6 @@
 import circonscriptionslegislativesp10_1_2 from "@/data/154circonscriptionslegislativesp10_1_2"
 import {Problem} from "@/app/definitions";
+import {center} from '@turf/turf';
 
 export const problems: {[id: string]: Problem} = {};
 
@@ -43,6 +44,9 @@ for (let problemFeature of problemFeatures) {
       }
     }
 
+    // @ts-ignore
+    const centerElement = center(feature);
+
     problems[id] = {
       circoName,
       candidateName,
@@ -50,6 +54,7 @@ for (let problemFeature of problemFeatures) {
       sources,
       problemType: problemType! in problemMapping ? problemMapping[problemType!]! : problemType!,
       id: String(id),
+      center: centerElement.geometry.coordinates,
     };
 
     // @ts-ignore

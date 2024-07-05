@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@turf/turf": "^7.0.0",
     "leaflet": "^1.9.4",
     "leaflet-active-area": "^1.2.1",
     "next": "14.2.4",

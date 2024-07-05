@@ -11,9 +11,10 @@ interface MapProps {
   onClick: (problemId: string) => void,
   problemType: string|null,
   problemId: string|null,
+  centerProblemId: string|null,
 }
 
-export default function Map({onClick, problemType, problemId}: MapProps) {
+export default function Map({onClick, problemType, problemId, centerProblemId}: MapProps) {
   const styleProblem = (feature: any) => {
     const featureProblemId = feature.properties.problemId;
     const problem = problems[featureProblemId];
@@ -34,13 +35,12 @@ export default function Map({onClick, problemType, problemId}: MapProps) {
       fillOpacity: 1,
       fillColor: problemData?.fillColor,
       interactive: true,
-      // ...(problemId === featureProblemId ? selectedStyle : {}),
     };
   };
 
   const clickLayer = (clickEvent: any) => {
     const {layer: {feature: {properties: {problemId}}}} = clickEvent;
-    if (problemId) {
+    if (null !== problemId) {
       onClick(String(problemId));
     }
   }
@@ -128,7 +128,9 @@ export default function Map({onClick, problemType, problemId}: MapProps) {
           position="topright"
         />
 
-        <MapContent/>
+        <MapContent
+          problemId={centerProblemId}
+        />
       </MapContainer>
     </div>
   );

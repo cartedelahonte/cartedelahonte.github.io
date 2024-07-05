@@ -1,3 +1,5 @@
+import {Position} from "geojson";
+
 export interface Problem {
   circoName: string,
   candidateName: string,
@@ -5,4 +7,5 @@ export interface Problem {
   sources: string[],
   problemType: string,
   id: string,
+  center: Position,
 }

@@ -7,8 +7,9 @@ interface ListProps {
   problemId: string|null,
   problemType: string|null,
   onClose: () => void,
-  setProblemId: (problemId: string|null) => void,
+  setProblemId: (problemId: string|null, removeProblemType?: boolean) => void,
   setProblemType: (problemLabel: string|null) => void,
+
 }
 
 export default function List({problemId, problemType, onClose, setProblemType, setProblemId}: ListProps) {

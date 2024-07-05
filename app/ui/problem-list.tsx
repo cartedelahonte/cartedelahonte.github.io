@@ -6,7 +6,7 @@ import React from "react";
 import Filters from "@/app/ui/filters";
 
 interface ProblemListProps {
-  setProblemId: (problemId: string|null) => void,
+  setProblemId: (problemId: string|null, removeProblemType?: boolean) => void,
   setProblemType: (problemLabel: string|null) => void,
   problemType: string|null,
 }
@@ -24,6 +24,10 @@ export default function ProblemList({setProblemType, problemType, setProblemId}:
     e.stopPropagation();
     setProblemType(null);
   }
+
+  const filterSetProblemId = (problemId: string|null) => {
+    setProblemId(problemId, true);
+  };
 
   return (
     <div>
@@ -55,7 +59,7 @@ export default function ProblemList({setProblemType, problemType, setProblemId}:
       </div>
 
       <Filters
-        setProblemId={setProblemId}
+        setProblemId={filterSetProblemId}
       />
 
       <hr className="mt-6"/>

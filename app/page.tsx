@@ -19,15 +19,19 @@ const Map = dynamic(() => import("@/app/ui/map"), {
 export default function Home() {
   const [problemId, setProblemId] = useState<string | null>(null);
   const [problemType, setProblemType] = useState<string | null>(null);
+  const [centerProblemId, setCenterProblemId] = useState<string | null>(null);
 
   const changeProblemType = (problemType: string|null) => {
     setProblemId(null);
     setProblemType(problemType);
   }
 
-  const changeProblemId = (problemId: string|null) => {
+  const changeProblemIdFromList = (problemId: string|null, removeProblemType?: boolean) => {
+    if (removeProblemType) {
+      setProblemType(null);
+    }
+    setCenterProblemId(problemId);
     setProblemId(problemId);
-    setProblemType(null);
   }
 
   return (
@@ -35,6 +39,7 @@ export default function Home() {
       <Map
         problemType={problemType}
         problemId={problemId}
+        centerProblemId={centerProblemId}
         onClick={setProblemId}
       />
 
@@ -43,7 +48,7 @@ export default function Home() {
         problemType={problemType}
         onClose={() => setProblemId(null)}
         setProblemType={changeProblemType}
-        setProblemId={setProblemId}
+        setProblemId={changeProblemIdFromList}
       />
     </main>
   );
