@@ -12,15 +12,25 @@ const Map = dynamic(() => import("@/app/ui/map"), {
 
 export default function Home() {
   const [problemId, setProblemId] = useState<string|null>(null);
+  const [problemType, setProblemType] = useState<string|null>(null);
+
+  const changeProblemType = (problemType: string|null) => {
+    setProblemId(null);
+    setProblemType(problemType);
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <Filters/>
       <Map
+        problemType={problemType}
         onClick={setProblemId}
       />
       <List
         problemId={problemId}
+        problemType={problemType}
+        onClose={() => setProblemId(null)}
+        setProblemType={changeProblemType}
       />
     </main>
   );

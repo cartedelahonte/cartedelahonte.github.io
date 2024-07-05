@@ -72,22 +72,13 @@ export const problemsData: {[key: string]: {fillColor: string}} = {
   'coupable de fraude': {
     fillColor: 'rgba(204,17,0,1.0)',
   },
-  'fraude': {
-    fillColor: 'rgba(204,17,0,1.0)',
-  },
   'homophobe': {
-    fillColor: 'rgba(134,42,0,1.0)',
-  },
-  'homophobie': {
     fillColor: 'rgba(134,42,0,1.0)',
   },
   'négationniste': {
     fillColor: 'rgba(169,194,208,1.0)',
   },
   'opposé aux droits des femmes': {
-    fillColor: 'rgba(182,46,114,1.0)',
-  },
-  'opposé aux droits des femmes ': {
     fillColor: 'rgba(182,46,114,1.0)',
   },
   'raciste et antisémite': {

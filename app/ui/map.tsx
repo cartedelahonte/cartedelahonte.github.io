@@ -8,9 +8,10 @@ import {isMobile} from 'react-device-detect';
 
 interface MapProps {
   onClick: (problemId: string) => void,
+  problemType: string|null,
 }
 
-export default function Map({onClick}: MapProps) {
+export default function Map({onClick, problemType}: MapProps) {
   const styleProblem = (feature: any) => {
     const problemId = feature.properties.problemId;
     const problem = problems[problemId];
@@ -58,7 +59,7 @@ export default function Map({onClick}: MapProps) {
             data={problemFeature}
             key={i}
             eventHandlers={{
-              click: clickLayer
+              click: clickLayer,
             }}
             style={styleProblem}
           />
