@@ -6,7 +6,7 @@ export default function ProblemList() {
     <div>
       <p>
         125 preuves que le RN est toujours...
-        affilié à des régimes autoritaires, climatosceptique, conspirationniste, contre votre santé, coupable de fraude, homophobe, négationniste,
+        affilié à des régimes autoritaires, climatosceptique, conspirationniste, contre votre santé, fraudeur, homophobe, négationniste,
         opposé aux droits des femmes, raciste et antisémite, sexiste, suprémaciste, violent, voire tout à la fois
 
       </p>

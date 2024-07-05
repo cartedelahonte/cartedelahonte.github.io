@@ -1,9 +1,10 @@
 "use client";
 
-import {GeoJSON, MapContainer, Marker, Popup, TileLayer, ZoomControl} from 'react-leaflet'
+import {GeoJSON, MapContainer, TileLayer, ZoomControl} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import {problemFeatures, problems, problemsData} from "@/app/data/problems";
 import contourdesdepartements_1 from '@/data/contourdesdepartements_1';
+import {isMobile} from 'react-device-detect';
 
 interface MapProps {
   onClick: (problemId: string) => void,
@@ -44,8 +45,8 @@ export default function Map({onClick}: MapProps) {
   return (
     <div className="grow h-[300px] w-full">
       <MapContainer
-        center={[46.57079614389821, -1.666576696525189]}
-        zoom={6}
+        center={isMobile ? [42.898482536851965, 1.9003438203998766] : [46.57079614389821, -1.666576696525189]}
+        zoom={isMobile ? 5 : 6}
         zoomControl={false}
       >
         <TileLayer

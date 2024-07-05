@@ -1,6 +1,5 @@
 import {Problem} from "@/app/definitions";
 import {problemsData} from "@/app/data/problems";
-import {getOppositeColor} from "@/app/helpers/colors";
 
 interface ProblemProps {
   problem: Problem,
@@ -17,19 +16,18 @@ export default function ProblemElement({problem}: ProblemProps) {
   };
 
   const fillColor = problemsData[problem.problemType]?.fillColor;
-  const oppositeColor = getOppositeColor(fillColor);
 
   return (
     <div>
-      <h2 className=" mb-2 flex gap-4 items-center">
+      <h2 className="mb-2">
         <span className="text-2xl">
           {problem.circoName}
         </span>
-
-        {problem.problemType && <div className="rounded-full px-3 py-1 text-sm ml-2" style={{background: fillColor, color: oppositeColor}}>
-          {problem.problemType}
-        </div>}
       </h2>
+
+      {problem.problemType && <div className="rounded-full px-3 py-1 text-sm inline-block mb-4" style={{background: fillColor, color: 'white'}}>
+        {problem.problemType}
+      </div>}
 
       <h3 className="text-xl font-bold mb-4">
         {problem.candidateName}

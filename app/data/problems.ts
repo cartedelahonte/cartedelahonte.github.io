@@ -4,6 +4,12 @@ import {Problem} from "@/app/definitions";
 
 export const problems: {[id: string]: Problem} = {};
 
+const problemMapping = {
+  'homophobie': 'homophobe',
+  'fraude': 'coupable de fraude',
+  'opposé aux droits des femmes ': 'opposé aux droits des femmes',
+};
+
 export const problemFeatures = [
   circonscriptionslegislativesp10_2,
   antoinejuliecirconscriptions,
@@ -40,7 +46,7 @@ for (let problemFeature of problemFeatures) {
       candidateName,
       candidateData,
       sources,
-      problemType,
+      problemType: problemType in problemMapping ? problemMapping[problemType] : problemType,
       id,
     };
 
