@@ -48,6 +48,7 @@ export default function Map({onClick, problemType}: MapProps) {
     for (let problemFeature of problemFeatures) {
       const features = [];
       for (let feature of problemFeature.features) {
+        // @ts-ignore
         const problemId = feature.properties.problemId;
         const problem = problems[problemId];
         if (problem.problemType === problemType) {
