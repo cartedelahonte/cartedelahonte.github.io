@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import {problemFeatures, problems, problemsData} from "@/app/data/problems";
 import contourdesdepartements_1 from '@/data/contourdesdepartements_1';
 import {isMobile} from 'react-device-detect';
+import MapContent from "@/app/ui/map-content";
 
 interface MapProps {
   onClick: (problemId: string) => void,
@@ -75,7 +76,7 @@ export default function Map({onClick, problemType, problemId}: MapProps) {
   return (
     <div className="grow fixed top-0 bottom-0 left-0 right-0">
       <MapContainer
-        center={isMobile ? [40.95019635026425, 2.239993297605371] : [46.57079614389821, -1.666576696525189]}
+        center={[46.44903377262644, 2.3075544460173245]}
         zoom={isMobile ? 5 : 6}
         zoomControl={false}
       >
@@ -126,6 +127,8 @@ export default function Map({onClick, problemType, problemId}: MapProps) {
         <ZoomControl
           position="topright"
         />
+
+        <MapContent/>
       </MapContainer>
     </div>
   );

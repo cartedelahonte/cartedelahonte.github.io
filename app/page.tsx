@@ -6,10 +6,12 @@ import {useState} from "react";
 
 
 const Map = dynamic(() => import("@/app/ui/map"), {
-  loading: () => <div className="grow w-full h-full flex items-center justify-center flex-col gap-4 bg-[#ddd] pb-[30vh]">
-    <div className="loader"/>
+  loading: () => <div className="grow w-full h-full flex items-center justify-center flex-col gap-4 bg-[#ddd] pb-[30vh] relative">
+    <div className="activeArea flex items-center justify-center flex-col gap-4">
+      <div className="loader"/>
 
-    <p>Chargement de la carte...</p>
+      <p>Chargement de la carte...</p>
+    </div>
   </div>,
   ssr: false,
 });
@@ -35,6 +37,7 @@ export default function Home() {
         problemId={problemId}
         onClick={setProblemId}
       />
+
       <List
         problemId={problemId}
         problemType={problemType}

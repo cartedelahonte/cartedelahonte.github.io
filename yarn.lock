@@ -650,6 +650,11 @@ jiti@^1.21.0:
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
 
+leaflet-active-area@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/leaflet-active-area/-/leaflet-active-area-1.2.1.tgz#dc93ea005e32c7a027360f2d14098c21aaaed52f"
+  integrity sha512-lZdkGt7VzaYCrarYaWnJ4BI2CrzrfivX35GLUc9l4w8y9ru88LLqcQzWZMw7bPzSzHO7do301z77mSfIvhWjFg==
+
 leaflet@^1.9.4:
   version "1.9.4"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.9.4.tgz#23fae724e282fa25745aff82ca4d394748db7d8d"
