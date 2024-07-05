@@ -42,6 +42,26 @@ export default function Map({onClick, problemType}: MapProps) {
     }
   }
 
+  let filteredFeatures = problemFeatures;
+  if (null !== problemType) {
+    filteredFeatures = [];
+    for (let problemFeature of problemFeatures) {
+      const features = [];
+      for (let feature of problemFeature.features) {
+        const problemId = feature.properties.problemId;
+        const problem = problems[problemId];
+        if (problem.problemType === problemType) {
+          features.push(feature);
+        }
+      }
+
+      filteredFeatures.push({
+        ...problemFeature,
+        features,
+      });
+    }
+  }
+
   // @ts-ignore
   return (
     <div className="grow h-[300px] w-full">
@@ -54,10 +74,10 @@ export default function Map({onClick, problemType}: MapProps) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {problemFeatures.map((problemFeature, i) =>
+        {filteredFeatures.map((problemFeature, i) =>
           <GeoJSON
+            key={JSON.stringify(problemFeature)}
             data={problemFeature as any}
-            key={i}
             eventHandlers={{
               click: clickLayer,
             }}
@@ -81,10 +101,6 @@ export default function Map({onClick, problemType}: MapProps) {
         <ZoomControl
           position="topright"
         />
-        {/*<TileLayer*/}
-        {/*  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'*/}
-        {/*  url="https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}"*/}
-        {/*/>*/}
       </MapContainer>
     </div>
   );
