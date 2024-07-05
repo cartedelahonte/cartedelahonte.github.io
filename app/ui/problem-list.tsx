@@ -12,7 +12,7 @@ export default function ProblemList() {
       </p>
 
       {Object.entries(problems).map(([problemId, problem]) =>
-        <div key={problemId} className="mt-10">
+        <div key={problemId} className="mt-6 border-b border-b-[#00000022] pb-6">
           <ProblemElement
             problem={problem}
           />
