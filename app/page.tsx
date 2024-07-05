@@ -5,6 +5,7 @@ import List from "@/app/ui/list";
 import dynamic from "next/dynamic";
 import {useState} from "react";
 
+
 const Map = dynamic(() => import("@/app/ui/map"), {
   loading: () => <div className="grow w-full h-full flex items-center justify-center flex-col gap-4 bg-[#ddd] pb-[30vh]">
     <div className="loader"/>
