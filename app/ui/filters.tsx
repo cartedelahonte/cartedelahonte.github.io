@@ -34,10 +34,17 @@ export default function Filters({setProblemId}: FiltersProps) {
     return "";
   };
 
+  const formatString = (a: string) => {
+    return a
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLocaleLowerCase();
+  };
+
 
   const filteredProblems = Object.entries(problems).filter(([problemId, problem]) => {
-    return -1 !== problem.circoName.toLowerCase().indexOf(query.toLowerCase())
-      || -1 !== problem.candidateName.toLowerCase().indexOf(query.toLowerCase());
+    return -1 !== formatString(problem.circoName).indexOf(formatString(query))
+      || -1 !== formatString(problem.candidateName).indexOf(formatString(query));
   });
 
   return (
@@ -78,7 +85,7 @@ export default function Filters({setProblemId}: FiltersProps) {
               className={`cursor-pointer text-[#666] py-2 px-4 hover:bg-[#F2F9FC] hover:text-[#333]`}
               key={problemId}
             >
-              {problem.circoName} ({problem.candidateName})
+              {problem.circoName} - {problem.candidateName}
             </div>
           );
         })}
