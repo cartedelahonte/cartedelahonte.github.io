@@ -31,9 +31,9 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <Filters/>
       <Map
         problemType={problemType}
+        problemId={problemId}
         onClick={changeProblemId}
       />
       <List
@@ -41,6 +41,7 @@ export default function Home() {
         problemType={problemType}
         onClose={() => setProblemId(null)}
         setProblemType={changeProblemType}
+        setProblemId={setProblemId}
       />
     </main>
   );

@@ -6,10 +6,11 @@ interface ListProps {
   problemId: string|null,
   problemType: string|null,
   onClose: () => void,
+  setProblemId: (problemId: string|null) => void,
   setProblemType: (problemLabel: string|null) => void,
 }
 
-export default function List({problemId, problemType, onClose, setProblemType}: ListProps) {
+export default function List({problemId, problemType, onClose, setProblemType, setProblemId}: ListProps) {
   return (
     <div className="fixed bottom-0 md:bottom-auto rounded-tr-lg rounded-tl-lg md:rounded-bl-lg md:rounded-br-lg left-0 right-0 md:left-[50px] md:top-[50px] md:max-w-[600px] max-h-[50vh] md:max-h-[90vh] z-[1000] bg-white overflow-y-auto">
       <div className="container mx-auto max-w-[800px] break-words">
@@ -23,6 +24,7 @@ export default function List({problemId, problemType, onClose, setProblemType}: 
             :
             <ProblemList
               setProblemType={setProblemType}
+              setProblemId={setProblemId}
               problemType={problemType}
             />
           }

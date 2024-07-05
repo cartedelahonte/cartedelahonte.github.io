@@ -3,14 +3,15 @@ import ProblemElement from "@/app/ui/problem-element";
 import Image from "next/image";
 import CloseWhiteIcon from "@/app/images/close-white.svg";
 import React from "react";
+import Filters from "@/app/ui/filters";
 
 interface ProblemListProps {
+  setProblemId: (problemId: string|null) => void,
   setProblemType: (problemLabel: string|null) => void,
   problemType: string|null,
-
 }
 
-export default function ProblemList({setProblemType, problemType}: ProblemListProps) {
+export default function ProblemList({setProblemType, problemType, setProblemId}: ProblemListProps) {
   const problemsCount = Object.values(problems).length;
 
   let displayedProblems = Object.entries(problems);
@@ -30,7 +31,7 @@ export default function ProblemList({setProblemType, problemType}: ProblemListPr
         {problemsCount} preuves que le RN est toujours...
       </h1>
 
-      <div className="flex gap-1 md:gap-2 flex-wrap mb-4 md:mb-10">
+      <div className="flex gap-1 md:gap-2 flex-wrap mb-6">
         {Object.entries(problemsData).map(([problemLabel, problemData], i) =>
           <div
             className="rounded-full px-3 py-1 text-xs md:text-sm inline-flex cursor-pointer items-center gap-2 justify-center"
@@ -53,7 +54,11 @@ export default function ProblemList({setProblemType, problemType}: ProblemListPr
         )}
       </div>
 
-      <hr/>
+      <Filters
+        setProblemId={setProblemId}
+      />
+
+      <hr className="mt-6"/>
 
       {displayedProblems.map(([problemId, problem]) =>
         <div key={problemId} className="mt-4 md:mt-6 border-b border-b-[#00000022] pb-6">
@@ -62,7 +67,6 @@ export default function ProblemList({setProblemType, problemType}: ProblemListPr
           />
         </div>
       )}
-
 
       <p className="mt-20">
         Cartographie actualisée le 04/07/2024 à l'aide des informations disponibles à ce jour.

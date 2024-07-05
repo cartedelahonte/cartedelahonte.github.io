@@ -9,16 +9,22 @@ import {isMobile} from 'react-device-detect';
 interface MapProps {
   onClick: (problemId: string) => void,
   problemType: string|null,
+  problemId: string|null,
 }
 
-export default function Map({onClick, problemType}: MapProps) {
+export default function Map({onClick, problemType, problemId}: MapProps) {
   const styleProblem = (feature: any) => {
-    const problemId = feature.properties.problemId;
-    const problem = problems[problemId];
+    const featureProblemId = feature.properties.problemId;
+    const problem = problems[featureProblemId];
     const problemType = problem.problemType;
     // console.log({feature, problemId, problem});
 
     const problemData = problemsData[problemType];
+
+    const selectedStyle = {
+      color: 'rgba(246,233,55,1.0)',
+      weight: 3.0,
+    }
 
     // console.log({feature, problemId, problem, problemData});
     return {
@@ -32,6 +38,7 @@ export default function Map({onClick, problemType}: MapProps) {
       fillOpacity: 1,
       fillColor: problemData?.fillColor,
       interactive: true,
+      // ...(problemId === featureProblemId ? selectedStyle : {}),
     };
   };
 
