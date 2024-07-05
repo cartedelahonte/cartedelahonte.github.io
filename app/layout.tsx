@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `Carte de la honte : ${problemsCount} preuves que le RN est...`,
     description: `${problemsCount} preuves que le RN est toujours...`,
-    images: ['https://cartedelahonte.github.io/images/social-card.png'],
+    images: ['https://cartedelahonte.github.io/static/social-card.png'],
   },
 
   openGraph: {
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://cartedelahonte.github.io/",
     images: [
-      'https://cartedelahonte.github.io/images/social-card.png',
+      'https://cartedelahonte.github.io/static/social-card.png',
     ],
   },
 }
