@@ -66,7 +66,7 @@ export default function Filters({setProblemId}: FiltersProps) {
             value={getDisplayValue()}
             name="searchTerm"
             autoComplete="off"
-            placeholder="Chercher une circonscription ou un candidat"
+            placeholder="Circonscription ou candidat"
             className="rounded-full bg-[white] px-6 pl-9 py-2 w-full border border-[#ccc]"
             onChange={(e) => {
               setQuery(e.target.value);
