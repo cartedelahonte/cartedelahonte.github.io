@@ -31,7 +31,7 @@ export default function ProblemList({setProblemType, problemType, setProblemId}:
 
   return (
     <div>
-      <h1 className="text-2xl md:text-5xl mb-4 md:mb-6">
+      <h1 className="text-xl md:text-5xl font-bold md:font-normal mb-4 md:mb-6">
         {problemsCount} preuves que le RN est toujours...
       </h1>
 
