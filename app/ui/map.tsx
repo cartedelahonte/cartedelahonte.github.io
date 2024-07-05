@@ -73,7 +73,7 @@ export default function Map({onClick, problemType, problemId}: MapProps) {
 
   // @ts-ignore
   return (
-    <div className="grow h-[100vh] w-full">
+    <div className="grow fixed top-0 bottom-0 left-0 right-0">
       <MapContainer
         center={isMobile ? [40.95019635026425, 2.239993297605371] : [46.57079614389821, -1.666576696525189]}
         zoom={isMobile ? 5 : 6}
