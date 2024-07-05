@@ -69,7 +69,7 @@ export default function Map({onClick, problemType, problemId}: MapProps) {
     });
   }
 
-  console.log('highlight', {highlightedFeature, problemId});
+  // console.log('highlight', {highlightedFeature, problemId});
 
   // @ts-ignore
   return (
@@ -107,7 +107,6 @@ export default function Map({onClick, problemType, problemId}: MapProps) {
             fill: false,
             fillOpacity: 1,
             interactive: true,
-            // ...(problemId === featureProblemId ? selectedStyle : {}),
           }}
         />}
         <GeoJSON

@@ -33,7 +33,7 @@ export default function Home() {
       <Map
         problemType={problemType}
         problemId={problemId}
-        onClick={changeProblemId}
+        onClick={setProblemId}
       />
       <List
         problemId={problemId}
