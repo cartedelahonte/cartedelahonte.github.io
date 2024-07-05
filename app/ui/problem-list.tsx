@@ -72,7 +72,7 @@ export default function ProblemList({setProblemType, problemType}: ProblemListPr
       <h5><i> La carte de la honte est une initiatie étudiante indépendante et entièrement sourcée, publiée le 25 juin
         2024. Elle n'est affiliée à aucune organisation politique, et n'a à ce titre aucun lien avec le "Tour de France
         de la honte", carte diffusée depuis le 1er juillet par le parti Renaissance, bien que le concept, le titre et
-        les informations de cette dernière en semble très largement inspirés voire copiées.
+        les informations de cette dernière en semblent très largement inspirés voire copiés.
       </i></h5>
     </div>
   )
