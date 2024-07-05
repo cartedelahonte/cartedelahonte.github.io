@@ -1,35 +1,34 @@
-import circonscriptionslegislativesp10_2 from "@/data/circonscriptionslegislativesp10_2";
-import antoinejuliecirconscriptions from "@/data/antoinetjuliecirconscriptionslegislativesp10_3"
+import circonscriptionslegislativesp10_1_2 from "@/data/154circonscriptionslegislativesp10_1_2"
 import {Problem} from "@/app/definitions";
 
 export const problems: {[id: string]: Problem} = {};
 
 const problemMapping: {[key: string]: string} = {
+  'complotiste ': 'complotiste',
   'homophobie': 'homophobe',
   'fraude': 'coupable de fraude',
   'opposé aux droits des femmes ': 'opposé aux droits des femmes',
 };
 
 export const problemFeatures = [
-  circonscriptionslegislativesp10_2,
-  antoinejuliecirconscriptions,
+  circonscriptionslegislativesp10_1_2,
 ];
 
 let id = 0;
 for (let problemFeature of problemFeatures) {
   for (let feature of problemFeature.features) {
     const properties = feature.properties;
-    const circoName = properties["Candidats RN (1) (1) — Feuille 1_Field3"];
-    const candidateName = properties["Candidats RN (1) (1) — Feuille 1_Field4"];
-    const problemType = properties['q2wHide_Candidats RN (1) (1) — Feuille 1_Field14'];
+    const circoName = properties["Candidats RN (1) (2) — Feuille 1_Field3"];
+    const candidateName = properties["Candidats RN (1) (2) — Feuille 1_Field4"];
+    const problemType = properties['q2wHide_Candidats RN (1) (2) — Feuille 1_Field14'];
 
     const candidateData = [];
     const sources = [];
     for (let i = 5; i <= 30; i++) {
       // @ts-ignore
-      if (properties[`Candidats RN (1) (1) — Feuille 1_Field${i}`]) {
+      if (properties[`Candidats RN (1) (2) — Feuille 1_Field${i}`]) {
         // @ts-ignore
-        const data = properties[`Candidats RN (1) (1) — Feuille 1_Field${i}`];
+        const data = properties[`Candidats RN (1) (2) — Feuille 1_Field${i}`];
         if (-1 !== data.indexOf('https://')) {
           const elements = data.split("\n");
           for (let element of elements) {
@@ -65,6 +64,9 @@ export const problemsData: {[key: string]: {fillColor: string}} = {
   },
   'climatosceptique': {
     fillColor: 'rgba(102,204,0,1.0)',
+  },
+  'complotiste': {
+    fillColor: 'rgba(35,35,35,1.0)',
   },
   'conspirationniste': {
     fillColor: 'rgba(255,145,220,1.0)',
