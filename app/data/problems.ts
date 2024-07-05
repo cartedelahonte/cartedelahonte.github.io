@@ -4,7 +4,7 @@ import {Problem} from "@/app/definitions";
 
 export const problems: {[id: string]: Problem} = {};
 
-const problemMapping = {
+const problemMapping: {[key: string]: string} = {
   'homophobie': 'homophobe',
   'fraude': 'coupable de fraude',
   'opposé aux droits des femmes ': 'opposé aux droits des femmes',
@@ -26,7 +26,9 @@ for (let problemFeature of problemFeatures) {
     const candidateData = [];
     const sources = [];
     for (let i = 5; i <= 30; i++) {
+      // @ts-ignore
       if (properties[`Candidats RN (1) (1) — Feuille 1_Field${i}`]) {
+        // @ts-ignore
         const data = properties[`Candidats RN (1) (1) — Feuille 1_Field${i}`];
         if (-1 !== data.indexOf('https://')) {
           const elements = data.split("\n");
@@ -46,10 +48,11 @@ for (let problemFeature of problemFeatures) {
       candidateName,
       candidateData,
       sources,
-      problemType: problemType in problemMapping ? problemMapping[problemType] : problemType,
+      problemType: problemType! in problemMapping ? problemMapping[problemType!]! : problemType!,
       id,
     };
 
+    // @ts-ignore
     properties.problemId = id;
 
     id++;

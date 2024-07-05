@@ -19,12 +19,17 @@ export default function Home() {
     setProblemType(problemType);
   }
 
+  const changeProblemId = (problemId: string|null) => {
+    setProblemId(problemId);
+    setProblemType(null);
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <Filters/>
       <Map
         problemType={problemType}
-        onClick={setProblemId}
+        onClick={changeProblemId}
       />
       <List
         problemId={problemId}

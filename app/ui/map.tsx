@@ -35,7 +35,7 @@ export default function Map({onClick, problemType}: MapProps) {
     };
   };
 
-  const clickLayer = (clickEvent) => {
+  const clickLayer = (clickEvent: any) => {
     const {layer: {feature: {properties: {problemId}}}} = clickEvent;
     if (problemId) {
       onClick(problemId);
@@ -56,16 +56,16 @@ export default function Map({onClick, problemType}: MapProps) {
         />
         {problemFeatures.map((problemFeature, i) =>
           <GeoJSON
-            data={problemFeature}
+            data={problemFeature as any}
             key={i}
             eventHandlers={{
               click: clickLayer,
             }}
-            style={styleProblem}
+            style={styleProblem as any}
           />
         )}
         <GeoJSON
-          data={contourdesdepartements_1}
+          data={contourdesdepartements_1 as any}
           style={{
             opacity: 1,
             color: 'rgba(35,35,35,1.0)',
