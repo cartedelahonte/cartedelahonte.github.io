@@ -34,7 +34,7 @@ export default function ProblemList({setProblemType, problemType, setProblemId}:
       <div className="flex gap-1 md:gap-2 flex-wrap mb-6">
         {Object.entries(problemsData).map(([problemLabel, problemData], i) =>
           <div
-            className="rounded-full px-3 py-1 text-xs md:text-sm inline-flex cursor-pointer items-center gap-2 justify-center"
+            className="rounded-full px-3 py-1 text-xs md:text-sm inline-flex cursor-pointer items-center gap-2 justify-center font-bold"
             key={i}
             style={{backgroundColor: problemData.fillColor, color: 'white'}}
             onClick={() => setProblemType(problemLabel)}

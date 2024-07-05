@@ -1,6 +1,5 @@
 "use client";
 
-import Filters from "@/app/ui/filters";
 import List from "@/app/ui/list";
 import dynamic from "next/dynamic";
 import {useState} from "react";

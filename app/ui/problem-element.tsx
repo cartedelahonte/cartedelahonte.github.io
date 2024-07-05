@@ -43,7 +43,7 @@ export default function ProblemElement({problem, closable, onClose}: ProblemProp
 
 
       {problem.problemType &&
-        <div className="rounded-full px-3 py-1 text-sm inline-block mb-4" style={{background: fillColor, color: 'white'}}>
+        <div className="rounded-full font-bold px-3 py-1 text-sm inline-block mb-4" style={{background: fillColor, color: 'white'}}>
         {problem.problemType}
       </div>}
 

@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import {problems} from "@/app/data/problems";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const problemsCount = Object.values(problems).length;
 
@@ -36,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

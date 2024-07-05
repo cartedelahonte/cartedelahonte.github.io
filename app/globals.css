@@ -5,6 +5,7 @@
 body {
   color: black;
   background: white;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {
