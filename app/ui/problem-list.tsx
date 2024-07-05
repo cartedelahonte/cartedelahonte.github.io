@@ -41,8 +41,8 @@ export default function ProblemList({setProblemType, problemType}: ProblemListPr
             {problemLabel}
             {problemType === problemLabel && <div>
               <Image
-                width={20}
-                height={20}
+                width={16}
+                height={16}
                 src={CloseWhiteIcon}
                 alt="Close"
                 className="cursor-pointer text-white"

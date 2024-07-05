@@ -46,7 +46,7 @@ export default function Map({onClick, problemType}: MapProps) {
   return (
     <div className="grow h-[300px] w-full">
       <MapContainer
-        center={isMobile ? [42.898482536851965, 1.9003438203998766] : [46.57079614389821, -1.666576696525189]}
+        center={isMobile ? [40.95019635026425, 2.239993297605371] : [46.57079614389821, -1.666576696525189]}
         zoom={isMobile ? 5 : 6}
         zoomControl={false}
       >
