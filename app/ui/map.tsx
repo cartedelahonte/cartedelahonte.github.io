@@ -21,11 +21,6 @@ export default function Map({onClick, problemType, problemId}: MapProps) {
 
     const problemData = problemsData[problemType];
 
-    const selectedStyle = {
-      color: 'rgba(246,233,55,1.0)',
-      weight: 3.0,
-    }
-
     // console.log({feature, problemId, problem, problemData});
     return {
       opacity: 1,
@@ -45,30 +40,36 @@ export default function Map({onClick, problemType, problemId}: MapProps) {
   const clickLayer = (clickEvent: any) => {
     const {layer: {feature: {properties: {problemId}}}} = clickEvent;
     if (problemId) {
-      onClick(problemId);
+      onClick(String(problemId));
     }
   }
 
-  let filteredFeatures = problemFeatures;
-  if (null !== problemType) {
-    filteredFeatures = [];
-    for (let problemFeature of problemFeatures) {
-      const features = [];
-      for (let feature of problemFeature.features) {
-        // @ts-ignore
-        const problemId = feature.properties.problemId;
-        const problem = problems[problemId];
-        if (problem.problemType === problemType) {
-          features.push(feature);
+  let filteredFeatures = [];
+  let highlightedFeature = null;
+  for (let problemFeature of problemFeatures) {
+    const features = [];
+    for (let feature of problemFeature.features) {
+      // @ts-ignore
+      const otherProblemId = feature.properties.problemId;
+      const problem = problems[otherProblemId];
+      if (null === problemType || problem.problemType === problemType) {
+        features.push(feature);
+      }
+      if (String(otherProblemId) === problemId) {
+        highlightedFeature = {
+          ...problemFeature,
+          features: [feature],
         }
       }
-
-      filteredFeatures.push({
-        ...problemFeature,
-        features,
-      });
     }
+
+    filteredFeatures.push({
+      ...problemFeature,
+      features,
+    });
   }
+
+  console.log('highlight', {highlightedFeature, problemId});
 
   // @ts-ignore
   return (
@@ -93,6 +94,22 @@ export default function Map({onClick, problemType, problemId}: MapProps) {
             style={styleProblem as any}
           />
         )}
+        {null !== highlightedFeature && <GeoJSON
+          key={JSON.stringify(highlightedFeature)}
+          data={highlightedFeature as any}
+          style={{
+            color: 'rgba(246,233,55,1.0)',
+            weight: 4.0,
+            opacity: 1,
+            dashArray: '',
+            lineCap: 'butt',
+            lineJoin: 'miter',
+            fill: false,
+            fillOpacity: 1,
+            interactive: true,
+            // ...(problemId === featureProblemId ? selectedStyle : {}),
+          }}
+        />}
         <GeoJSON
           data={contourdesdepartements_1 as any}
           style={{

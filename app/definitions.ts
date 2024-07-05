@@ -4,5 +4,5 @@ export interface Problem {
   candidateData: string[],
   sources: string[],
   problemType: string,
-  id: number,
+  id: string,
 }

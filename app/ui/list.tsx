@@ -19,6 +19,7 @@ export default function List({problemId, problemType, onClose, setProblemType, s
             <ProblemElement
               problem={problems[problemId]}
               closable
+              setProblemId={setProblemId}
               onClose={onClose}
             />
             :

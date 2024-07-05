@@ -6,10 +6,12 @@ import CloseIcon from '@/app/images/close.svg';
 interface ProblemProps {
   problem: Problem,
   closable?: boolean,
+  setProblemId: (problemId: string|null) => void,
   onClose?: () => void,
+  link?: boolean,
 }
 
-export default function ProblemElement({problem, closable, onClose}: ProblemProps) {
+export default function ProblemElement({problem, closable, onClose, link, setProblemId}: ProblemProps) {
   const truncateLength = 80;
   const truncate = (link: string) => {
     if (link.length < truncateLength) {
@@ -26,7 +28,16 @@ export default function ProblemElement({problem, closable, onClose}: ProblemProp
       <div className="flex gap-2">
         <h2 className="mb-2 grow">
           <span className="text-2xl">
-            {problem.circoName}
+            {link ?
+              <a
+                className="cursor-pointer underline hover:text-blue-800 visited:text-purple-600"
+                onClick={() => setProblemId(problem.id)}
+              >
+                {problem.circoName}
+              </a>
+            : <>{problem.circoName}</>
+            }
+
           </span>
         </h2>
         {closable && <div>

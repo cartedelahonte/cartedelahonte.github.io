@@ -49,7 +49,7 @@ for (let problemFeature of problemFeatures) {
       candidateData,
       sources,
       problemType: problemType! in problemMapping ? problemMapping[problemType!]! : problemType!,
-      id,
+      id: String(id),
     };
 
     // @ts-ignore

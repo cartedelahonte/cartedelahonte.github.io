@@ -64,6 +64,8 @@ export default function ProblemList({setProblemType, problemType, setProblemId}:
         <div key={problemId} className="mt-4 md:mt-6 border-b border-b-[#00000022] pb-6">
           <ProblemElement
             problem={problem}
+            setProblemId={setProblemId}
+            link
           />
         </div>
       )}
