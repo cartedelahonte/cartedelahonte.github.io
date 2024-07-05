@@ -26,11 +26,11 @@ export default function ProblemList({setProblemType, problemType}: ProblemListPr
 
   return (
     <div>
-      <h1 className="text-2xl md:text-5xl mb-6">
+      <h1 className="text-2xl md:text-5xl mb-4 md:mb-6">
         {problemsCount} preuves que le RN est toujours...
       </h1>
 
-      <div className="flex gap-1 md:gap-2 flex-wrap mb-10">
+      <div className="flex gap-1 md:gap-2 flex-wrap mb-4 md:mb-10">
         {Object.entries(problemsData).map(([problemLabel, problemData], i) =>
           <div
             className="rounded-full px-3 py-1 text-xs md:text-sm inline-flex cursor-pointer items-center gap-2 justify-center"
@@ -56,7 +56,7 @@ export default function ProblemList({setProblemType, problemType}: ProblemListPr
       <hr/>
 
       {displayedProblems.map(([problemId, problem]) =>
-        <div key={problemId} className="mt-6 border-b border-b-[#00000022] pb-6">
+        <div key={problemId} className="mt-4 md:mt-6 border-b border-b-[#00000022] pb-6">
           <ProblemElement
             problem={problem}
           />
