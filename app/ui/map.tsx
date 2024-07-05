@@ -14,11 +14,11 @@ export default function Map({onClick}: MapProps) {
     const problemId = feature.properties.problemId;
     const problem = problems[problemId];
     const problemType = problem.problemType;
-    console.log({feature, problemId, problem});
+    // console.log({feature, problemId, problem});
 
     const problemData = problemsData[problemType];
 
-    console.log({feature, problemId, problem, problemData});
+    // console.log({feature, problemId, problem, problemData});
     return {
       opacity: 1,
       color: 'rgba(35,35,35,1.0)',
@@ -44,7 +44,7 @@ export default function Map({onClick}: MapProps) {
   return (
     <div className="grow h-[300px] w-full">
       <MapContainer
-        center={[46.68326310077515, 2.7346287796068003]}
+        center={[46.57079614389821, -1.666576696525189]}
         zoom={6}
         zoomControl={false}
       >

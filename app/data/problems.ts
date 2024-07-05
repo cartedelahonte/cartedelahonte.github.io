@@ -100,5 +100,4 @@ export const problemsData: {[key: string]: {fillColor: string}} = {
     fillColor: 'rgba(36,114,48,1.0)',
   },
 }
-
-console.log({problems, problemFeatures});
+// console.log({problems, problemFeatures});
