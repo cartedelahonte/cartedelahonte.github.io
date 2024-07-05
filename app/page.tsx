@@ -6,13 +6,17 @@ import dynamic from "next/dynamic";
 import {useState} from "react";
 
 const Map = dynamic(() => import("@/app/ui/map"), {
-  loading: () => <p>Chargement...</p>,
+  loading: () => <div className="grow w-full h-full flex items-center justify-center flex-col gap-4 bg-[#ddd]">
+    <div className="loader"/>
+
+    <p>Chargement de la carte...</p>
+  </div>,
   ssr: false,
 });
 
 export default function Home() {
-  const [problemId, setProblemId] = useState<string|null>(null);
-  const [problemType, setProblemType] = useState<string|null>(null);
+  const [problemId, setProblemId] = useState<string | null>(null);
+  const [problemType, setProblemType] = useState<string | null>(null);
 
   const changeProblemType = (problemType: string|null) => {
     setProblemId(null);
