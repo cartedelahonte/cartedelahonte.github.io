@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title>La Carte de la Honte : 154 preuves que le RN est toujours...</title>
+
+        <meta name="twitter:title" content="La Carte de la Honte">
+        <meta name="twitter:title" content="Carte de la honte : 154 preuves que le RN est...">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:description" content="154 preuves que le RN est toujours...">
+        <meta name="twitter:image" content="https://cartedelahonte.github.io/images/banner.jpg">
+        <meta name="twitter:description" content="154 preuves que le RN est encore affilié à des régimes autoritaires, climatosceptique, conspirationniste, contre votre santé, coupable de fraude, homophobe, négationniste, opposé aux droits des femmes, raciste et antisémite, sexiste, suprémaciste, violent, voire tout à la fois.">
+        <meta name="twitter:image" content="https://cartedelahonte.github.io/images/social-card.png">
+
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://cartedelahonte.github.io/">
+        <meta property="og:title" content="La Carte de la Honte">
+        <meta name="description" property="og:description" content="154 preuves que le RN est toujours..." />
+        <meta property="og:image" content="https://cartedelahonte.github.io/images/banner.jpg">
+        <meta property="og:title" content="Carte de la honte : 154 preuves que le RN est...">
+        <meta name="description" property="og:description" content="154 preuves que le RN est encore affilié à des régimes autoritaires, climatosceptique, conspirationniste, contre votre santé, coupable de fraude, homophobe, négationniste, opposé aux droits des femmes, raciste et antisémite, sexiste, suprémaciste, violent, voire tout à la fois." />
+        <meta property="og:image" content="https://cartedelahonte.github.io/images/social-card.png"></title>
+    </head>
+    <body>
+	<center><FONT face="helvetica">
+	<h1>154 preuves que le RN est toujours...</h1>
+        <h3><span style="color:#ff4701">affilié à des régimes autoritaires</span>, <span style="color:#66cc00">climatosceptique</span>, <span style="color:#ff91dc"> conspirationniste</span>, <span style="color:#d0c55f"> contre votre santé</span>,<span style="color:#cc1100"> coupable de fraude</span>, <span style="color:#862a00">homophobe</span>, <span style="color:#a9c2d0">négationniste</span>, <br> <span style="color:#b62e72">opposé aux droits des femmes</span>, <span style="color:#388fc2">raciste et antisémite</span>, <span style="color:#d17038">sexiste</span>,<span style="color:#2419bf"> suprémaciste</span>, <span style="color:#247230">violent</span>, voire <span style="color:#3b1313">tout à la fois </span></h3>
+		<h3><font size ="3pt"> v.2ème tour: &nbsp <span style="border: 3px solid #ffff00; padding: 5px"> Circo pivot </span><span style="border: 3px solid #dd7b40; padding: 5px"> Déjà élu(e) </span> </font></h3>
+	</FONT></center>
+	    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/L.Control.Layers.Tree.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/contourdesdepartements_1.js"></script>
+        <script src="data/154circonscriptionslegislativesp10_1_2.js"></script>
+        <script src="data/dejaelus154__circonscriptionslegislativesp10_1_3.js"></script>
+        <script src="data/circopivot154__circonscriptionslegislativesp10_1_4.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString' || e.target.feature.geometry.type === 'MultiLineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+        }
+        var map = L.map('map', {
+            zoomControl:false, maxZoom:28, minZoom:1
+        }).fitBounds([[36.56754925716692,-4.902589916947724],[55.59479016947721,10.532641083052278]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        // remove popup's row if "visible-with-data"
+        function removeEmptyRowsFromPopupContent(content, feature) {
+         var tempDiv = document.createElement('div');
+         tempDiv.innerHTML = content;
+         var rows = tempDiv.querySelectorAll('tr');
+         for (var i = 0; i < rows.length; i++) {
+             var td = rows[i].querySelector('td.visible-with-data');
+             var key = td ? td.id : '';
+             if (td && td.classList.contains('visible-with-data') && feature.properties[key] == null) {
+                 rows[i].parentNode.removeChild(rows[i]);
+             }
+         }
+         return tempDiv.innerHTML;
+        }
+        // add class to format popup if it contains media
+		function addClassToPopupIfMedia(content, popup) {
+			var tempDiv = document.createElement('div');
+			tempDiv.innerHTML = content;
+			if (tempDiv.querySelector('td img')) {
+				popup._contentNode.classList.add('media');
+					// Delay to force the redraw
+					setTimeout(function() {
+						popup.update();
+					}, 10);
+			} else {
+				popup._contentNode.classList.remove('media');
+			}
+		}
+        var zoomControl = L.control.zoom({
+            position: 'topleft'
+        }).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_ESRIOcean_0');
+        map.getPane('pane_ESRIOcean_0').style.zIndex = 400;
+        var layer_ESRIOcean_0 = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}', {
+            pane: 'pane_ESRIOcean_0',
+            opacity: 0.5,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_ESRIOcean_0;
+        map.addLayer(layer_ESRIOcean_0);
+        function pop_contourdesdepartements_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['code'] !== null ? autolinker.link(feature.properties['code'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nom'] !== null ? autolinker.link(feature.properties['nom'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_contourdesdepartements_1_0() {
+            return {
+                pane: 'pane_contourdesdepartements_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_contourdesdepartements_1');
+        map.getPane('pane_contourdesdepartements_1').style.zIndex = 401;
+        map.getPane('pane_contourdesdepartements_1').style['mix-blend-mode'] = 'normal';
+        var layer_contourdesdepartements_1 = new L.geoJson(json_contourdesdepartements_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_contourdesdepartements_1',
+            layerName: 'layer_contourdesdepartements_1',
+            pane: 'pane_contourdesdepartements_1',
+            onEachFeature: pop_contourdesdepartements_1,
+            style: style_contourdesdepartements_1_0,
+        });
+        bounds_group.addLayer(layer_contourdesdepartements_1);
+        map.addLayer(layer_contourdesdepartements_1);
+        function pop_154circonscriptionslegislativesp10_1_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field2'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field3'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field3'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field4'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field4'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field5'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field5'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field6'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field6'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field7'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field7'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field8'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field8'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field9'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field9'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field10'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field10'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field11'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field11'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field13'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field13'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field18'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field18'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field19'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field19'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field20'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field20'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field21'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field21'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field22'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field22'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field23'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field23'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field24'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field24'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field25'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field25'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field26'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field26'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_154circonscriptionslegislativesp10_1_2_0(feature) {
+            switch(String(feature.properties['q2wHide_Candidats RN (1) (2) — Feuille 1_Field14'])) {
+                case 'affilié à des régimes autoritaires':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,71,1,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'climatosceptique':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(102,204,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'complotiste':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,145,220,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'complotiste ':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,145,220,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'conspirationniste':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,145,220,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'contre votre santé':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(208,197,95,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'coupable de fraude':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(204,17,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'fraude':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(204,17,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'homophobe':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(134,42,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'homophobie':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(134,42,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'négationniste':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(169,194,208,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'opposé aux droits des femmes':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(182,46,114,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'opposé aux droits des femmes ':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(182,46,114,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'raciste et antisémite':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(56,143,194,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'raciste et antisémite ':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(56,143,194,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'sexiste':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(209,112,56,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'suprémaciste':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(36,25,191,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'un peu de tout':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,19,19,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'violence':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(36,114,48,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'violent':
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(36,114,48,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_154circonscriptionslegislativesp10_1_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(214,141,107,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_154circonscriptionslegislativesp10_1_2');
+        map.getPane('pane_154circonscriptionslegislativesp10_1_2').style.zIndex = 402;
+        map.getPane('pane_154circonscriptionslegislativesp10_1_2').style['mix-blend-mode'] = 'normal';
+        var layer_154circonscriptionslegislativesp10_1_2 = new L.geoJson(json_154circonscriptionslegislativesp10_1_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_154circonscriptionslegislativesp10_1_2',
+            layerName: 'layer_154circonscriptionslegislativesp10_1_2',
+            pane: 'pane_154circonscriptionslegislativesp10_1_2',
+            onEachFeature: pop_154circonscriptionslegislativesp10_1_2,
+            style: style_154circonscriptionslegislativesp10_1_2_0,
+        });
+        bounds_group.addLayer(layer_154circonscriptionslegislativesp10_1_2);
+        map.addLayer(layer_154circonscriptionslegislativesp10_1_2);
+        function pop_dejaelus154__circonscriptionslegislativesp10_1_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field2'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field3'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field3'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field4'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field4'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field5'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field5'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field6'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field6'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field7'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field7'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field8'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field8'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field9'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field9'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field10'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field10'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field11'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field11'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field13'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field13'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field19'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field19'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field20'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field20'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field21'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field21'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field22'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field22'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field23'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field23'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field24'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field24'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field25'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field25'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field26'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field26'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_dejaelus154__circonscriptionslegislativesp10_1_3_0() {
+            return {
+                pane: 'pane_dejaelus154__circonscriptionslegislativesp10_1_3',
+                opacity: 1,
+                color: 'rgba(168,104,40,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 3.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_dejaelus154__circonscriptionslegislativesp10_1_3');
+        map.getPane('pane_dejaelus154__circonscriptionslegislativesp10_1_3').style.zIndex = 403;
+        map.getPane('pane_dejaelus154__circonscriptionslegislativesp10_1_3').style['mix-blend-mode'] = 'normal';
+        var layer_dejaelus154__circonscriptionslegislativesp10_1_3 = new L.geoJson(json_dejaelus154__circonscriptionslegislativesp10_1_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_dejaelus154__circonscriptionslegislativesp10_1_3',
+            layerName: 'layer_dejaelus154__circonscriptionslegislativesp10_1_3',
+            pane: 'pane_dejaelus154__circonscriptionslegislativesp10_1_3',
+            onEachFeature: pop_dejaelus154__circonscriptionslegislativesp10_1_3,
+            style: style_dejaelus154__circonscriptionslegislativesp10_1_3_0,
+        });
+        bounds_group.addLayer(layer_dejaelus154__circonscriptionslegislativesp10_1_3);
+        map.addLayer(layer_dejaelus154__circonscriptionslegislativesp10_1_3);
+        function pop_circopivot154__circonscriptionslegislativesp10_1_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field2'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field3'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field3'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field4'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field4'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field5'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field5'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field6'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field6'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field7'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field7'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field8'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field8'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field9'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field9'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field10'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field10'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field11'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field11'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field13'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field13'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field17'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field17'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field18'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field18'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field19'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field19'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field20'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field20'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field21'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field21'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field22'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field22'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field23'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field23'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field24'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field24'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field25'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field25'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Candidats RN (1) (2) — Feuille 1_Field26'] !== null ? autolinker.link(feature.properties['Candidats RN (1) (2) — Feuille 1_Field26'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_circopivot154__circonscriptionslegislativesp10_1_4_0() {
+            return {
+                pane: 'pane_circopivot154__circonscriptionslegislativesp10_1_4',
+                opacity: 1,
+                color: 'rgba(246,233,55,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 3.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_circopivot154__circonscriptionslegislativesp10_1_4');
+        map.getPane('pane_circopivot154__circonscriptionslegislativesp10_1_4').style.zIndex = 404;
+        map.getPane('pane_circopivot154__circonscriptionslegislativesp10_1_4').style['mix-blend-mode'] = 'normal';
+        var layer_circopivot154__circonscriptionslegislativesp10_1_4 = new L.geoJson(json_circopivot154__circonscriptionslegislativesp10_1_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_circopivot154__circonscriptionslegislativesp10_1_4',
+            layerName: 'layer_circopivot154__circonscriptionslegislativesp10_1_4',
+            pane: 'pane_circopivot154__circonscriptionslegislativesp10_1_4',
+            onEachFeature: pop_circopivot154__circonscriptionslegislativesp10_1_4,
+            style: style_circopivot154__circonscriptionslegislativesp10_1_4_0,
+        });
+        bounds_group.addLayer(layer_circopivot154__circonscriptionslegislativesp10_1_4);
+        map.addLayer(layer_circopivot154__circonscriptionslegislativesp10_1_4);
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_154circonscriptionslegislativesp10_1_2,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'Candidats RN (1) (2) — Feuille 1_Field3'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        </script>
+		<FONT size = "2pt">
+			<center>
+        		 <p> Cartographie actualisée le 04/07/2024 à l'aide des informations disponibles à ce jour. Partage autorisé sans limite. Contact: <i>lacartedelahonte@gmail.com</i> </p></FONT> <br> <FONT size = 2px><i> La carte de la honte est une initiatie étudiante indépendante et entièrement sourcée, publiée le 25 juin 2024. Elle n'est affiliée à aucune organisation politique, et n'a à ce titre aucun lien avec le "Tour de France de la honte", carte diffusée depuis le 1er juillet par le parti Renaissance, bien que le concept, le titre et les informations de cette dernière en semblent très largement inspirés voire copiés.</i></FONT>
+    			</center>
+    </body>
+</html>
