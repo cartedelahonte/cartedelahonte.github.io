@@ -71,7 +71,7 @@ export default function Filters({setProblemId, setOnlyElected, onlyElected}: Fil
             value={getDisplayValue()}
             name="searchTerm"
             autoComplete="off"
-            placeholder="Circonscription ou candidat"
+            placeholder="Circonscription ou candidat(e)"
             className="rounded-full bg-[white] px-6 pl-9 py-2 w-full border border-[#ccc]"
             onChange={(e) => {
               setQuery(e.target.value);
@@ -103,7 +103,7 @@ export default function Filters({setProblemId, setOnlyElected, onlyElected}: Fil
 
       <div className="mt-4">
         <Switch isSelected={onlyElected} onValueChange={setOnlyElected}>
-          Afficher uniquement les {electedCount} élus
+          Afficher uniquement les {electedCount} élu(e)s
         </Switch>
       </div>
     </div>
