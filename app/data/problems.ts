@@ -20,6 +20,7 @@ let id = 0;
 for (let problemFeature of problemFeatures) {
   for (let feature of problemFeature.features) {
     const properties = feature.properties;
+    const elected = 'ÉLU(E)' === properties['elus final2 — Feuille 1_Field1'];
     const circoName = properties["elus final2 — Feuille 1_Field2"];
     const candidateName = properties["elus final2 — Feuille 1_Field4"];
     const problemType = properties['elus final2 — Feuille 1_Field13'];
@@ -55,6 +56,7 @@ for (let problemFeature of problemFeatures) {
       problemType: problemType! in problemMapping ? problemMapping[problemType!]! : problemType!,
       id: String(id),
       center: centerElement.geometry.coordinates,
+      elected,
     };
 
     // @ts-ignore
@@ -73,9 +75,6 @@ export const problemsData: {[key: string]: {fillColor: string}} = {
   },
   'complotiste': {
     fillColor: 'rgba(35,35,35,1.0)',
-  },
-  'conspirationniste': {
-    fillColor: 'rgba(255,145,220,1.0)',
   },
   'contre votre santé': {
     fillColor: 'rgba(208,197,95,1.0)',

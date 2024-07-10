@@ -9,14 +9,20 @@ interface ProblemListProps {
   setProblemId: (problemId: string|null, removeProblemType?: boolean) => void,
   setProblemType: (problemLabel: string|null) => void,
   problemType: string|null,
+  setOnlyElected: (onlyElected: boolean) => void,
+  onlyElected: boolean,
 }
 
-export default function ProblemList({setProblemType, problemType, setProblemId}: ProblemListProps) {
+export default function ProblemList(props: ProblemListProps) {
+  const {setProblemType, problemType, setProblemId} = props;
   const problemsCount = Object.values(problems).length;
 
   let displayedProblems = Object.entries(problems);
   if (null !== problemType) {
     displayedProblems = displayedProblems.filter(a => problemType === a[1].problemType);
+  }
+  if (props.onlyElected) {
+    displayedProblems = displayedProblems.filter(a => a[1].elected);
   }
 
   const cancelProblemType = (e: React.MouseEvent) => {
@@ -60,6 +66,8 @@ export default function ProblemList({setProblemType, problemType, setProblemId}:
 
       <Filters
         setProblemId={filterSetProblemId}
+        onlyElected={props.onlyElected}
+        setOnlyElected={props.setOnlyElected}
       />
 
       <hr className="mt-6"/>

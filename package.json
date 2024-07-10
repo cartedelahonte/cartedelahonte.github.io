@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/react": "^2.4.2",
     "@turf/turf": "^7.0.0",
+    "framer-motion": "^11.3.0",
     "leaflet": "^1.9.4",
     "leaflet-active-area": "^1.2.1",
     "next": "14.2.4",

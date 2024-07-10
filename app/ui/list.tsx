@@ -9,10 +9,12 @@ interface ListProps {
   onClose: () => void,
   setProblemId: (problemId: string|null, removeProblemType?: boolean) => void,
   setProblemType: (problemLabel: string|null) => void,
-
+  setOnlyElected: (onlyElected: boolean) => void,
+  onlyElected: boolean,
 }
 
-export default function List({problemId, problemType, onClose, setProblemType, setProblemId}: ListProps) {
+export default function List(props: ListProps) {
+  const {problemId, problemType, onClose, setProblemType, setProblemId} = props;
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -38,6 +40,8 @@ export default function List({problemId, problemType, onClose, setProblemType, s
               setProblemType={setProblemType}
               setProblemId={setProblemId}
               problemType={problemType}
+              onlyElected={props.onlyElected}
+              setOnlyElected={props.setOnlyElected}
             />
           }
         </div>

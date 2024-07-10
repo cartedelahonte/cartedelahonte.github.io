@@ -6,6 +6,7 @@ export interface Problem {
   candidateData: string[],
   sources: string[],
   problemType: string,
+  elected: boolean,
   id: string,
   center: Position,
 }
