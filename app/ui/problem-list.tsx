@@ -9,14 +9,20 @@ interface ProblemListProps {
   setProblemId: (problemId: string|null, removeProblemType?: boolean) => void,
   setProblemType: (problemLabel: string|null) => void,
   problemType: string|null,
+  setOnlyElected: (onlyElected: boolean) => void,
+  onlyElected: boolean,
 }
 
-export default function ProblemList({setProblemType, problemType, setProblemId}: ProblemListProps) {
+export default function ProblemList(props: ProblemListProps) {
+  const {setProblemType, problemType, setProblemId} = props;
   const problemsCount = Object.values(problems).length;
 
   let displayedProblems = Object.entries(problems);
   if (null !== problemType) {
     displayedProblems = displayedProblems.filter(a => problemType === a[1].problemType);
+  }
+  if (props.onlyElected) {
+    displayedProblems = displayedProblems.filter(a => a[1].elected);
   }
 
   const cancelProblemType = (e: React.MouseEvent) => {
@@ -60,6 +66,8 @@ export default function ProblemList({setProblemType, problemType, setProblemId}:
 
       <Filters
         setProblemId={filterSetProblemId}
+        onlyElected={props.onlyElected}
+        setOnlyElected={props.setOnlyElected}
       />
 
       <hr className="mt-6"/>
@@ -75,11 +83,15 @@ export default function ProblemList({setProblemType, problemType, setProblemId}:
       )}
 
       <p className="mt-20">
-        Cartographie actualisée le 04/07/2024 à l'aide des informations disponibles à ce jour.
-        Partage autorisé sans limite.
+        Cartographie actualisée le 11/07/2024 à l'aide des informations disponibles à ce jour.
+        Partage autorisé sans limite. Les données sont disponibles&nbsp;
+        <a href="static/carte_de_la_honte_tableau.xlsx" className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank" rel="noopener noreferrer">
+          au format Excel
+        </a>
+        .
         Contact : <i>lacartedelahonte@gmail.com</i>
       </p><br/>
-      <h5><i> La carte de la honte est une initiatie étudiante indépendante et entièrement sourcée, publiée le 25 juin
+      <h5><i> La carte de la honte est une initiative étudiante indépendante et entièrement sourcée, publiée le 25 juin
         2024. Elle n'est affiliée à aucune organisation politique, et n'a à ce titre aucun lien avec le "Tour de France
         de la honte", carte diffusée depuis le 1er juillet par le parti Renaissance, bien que le concept, le titre et
         les informations de cette dernière en semblent très largement inspirés voire copiés.

@@ -2,12 +2,15 @@ import {useEffect, useRef, useState} from "react";
 import {problems} from "@/app/data/problems";
 import SearchIcon from "@/app/images/glass.svg";
 import Image from "next/image";
+import {Switch} from "@nextui-org/react";
 
 interface FiltersProps {
   setProblemId: (problemId: string|null) => void,
+  setOnlyElected: (onlyElected: boolean) => void,
+  onlyElected: boolean,
 }
 
-export default function Filters({setProblemId}: FiltersProps) {
+export default function Filters({setProblemId, setOnlyElected, onlyElected}: FiltersProps) {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -47,6 +50,8 @@ export default function Filters({setProblemId}: FiltersProps) {
       || -1 !== formatString(problem.candidateName).indexOf(formatString(query));
   });
 
+  const electedCount = Object.values(problems).filter(a => a.elected).length;
+
   return (
     <div className="">
       <div className="relative">
@@ -66,7 +71,7 @@ export default function Filters({setProblemId}: FiltersProps) {
             value={getDisplayValue()}
             name="searchTerm"
             autoComplete="off"
-            placeholder="Circonscription ou candidat"
+            placeholder="Circonscription ou candidat(e)"
             className="rounded-full bg-[white] px-6 pl-9 py-2 w-full border border-[#ccc]"
             onChange={(e) => {
               setQuery(e.target.value);
@@ -94,6 +99,12 @@ export default function Filters({setProblemId}: FiltersProps) {
         >
           Aucun résultat
         </div>}
+      </div>
+
+      <div className="mt-4">
+        <Switch isSelected={onlyElected} onValueChange={setOnlyElected}>
+          Afficher uniquement les {electedCount} élu(e)s
+        </Switch>
       </div>
     </div>
   );

@@ -12,9 +12,12 @@ interface MapProps {
   problemType: string|null,
   problemId: string|null,
   centerProblemId: string|null,
+  onlyElected: boolean,
 }
 
-export default function Map({onClick, problemType, problemId, centerProblemId}: MapProps) {
+export default function Map(props: MapProps) {
+  const {onClick, problemType, problemId, centerProblemId, onlyElected} = props;
+
   const styleProblem = (feature: any) => {
     const featureProblemId = feature.properties.problemId;
     const problem = problems[featureProblemId];
@@ -53,7 +56,7 @@ export default function Map({onClick, problemType, problemId, centerProblemId}: 
       // @ts-ignore
       const otherProblemId = feature.properties.problemId;
       const problem = problems[otherProblemId];
-      if (null === problemType || problem.problemType === problemType) {
+      if ((!onlyElected || problem.elected) &&  (null === problemType || problem.problemType === problemType)) {
         features.push(feature);
       }
       if (String(otherProblemId) === problemId) {

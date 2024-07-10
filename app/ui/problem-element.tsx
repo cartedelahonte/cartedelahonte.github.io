@@ -9,9 +9,10 @@ interface ProblemProps {
   setProblemId: (problemId: string|null) => void,
   onClose?: () => void,
   link?: boolean,
+  withoutCategory?: boolean,
 }
 
-export default function ProblemElement({problem, closable, onClose, link, setProblemId}: ProblemProps) {
+export default function ProblemElement({problem, closable, onClose, link, setProblemId, withoutCategory}: ProblemProps) {
   const truncateLength = 80;
   const truncate = (link: string) => {
     if (link.length < truncateLength) {
@@ -53,7 +54,7 @@ export default function ProblemElement({problem, closable, onClose, link, setPro
       </div>
 
 
-      {problem.problemType &&
+      {problem.problemType && !withoutCategory &&
         <div className="rounded-full font-bold px-3 py-1 text-sm inline-block mb-4" style={{background: fillColor, color: 'white'}}>
         {problem.problemType}
       </div>}

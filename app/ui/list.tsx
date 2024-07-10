@@ -9,10 +9,12 @@ interface ListProps {
   onClose: () => void,
   setProblemId: (problemId: string|null, removeProblemType?: boolean) => void,
   setProblemType: (problemLabel: string|null) => void,
-
+  setOnlyElected: (onlyElected: boolean) => void,
+  onlyElected: boolean,
 }
 
-export default function List({problemId, problemType, onClose, setProblemType, setProblemId}: ListProps) {
+export default function List(props: ListProps) {
+  const {problemId, problemType, onClose, setProblemType, setProblemId} = props;
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,11 +26,12 @@ export default function List({problemId, problemType, onClose, setProblemType, s
   return (
     <div ref={ref} className="fixed bottom-0 md:bottom-auto rounded-tr-lg rounded-tl-lg md:rounded-bl-lg md:rounded-br-lg left-0 right-0 md:left-[50px] md:top-[50px] md:max-w-[600px] max-h-[45%] md:max-h-[90vh] z-[1000] bg-white overflow-y-auto">
       <div className="container mx-auto max-w-[800px] break-words">
-        <div className="p-4 md:p-6">
+        <div className="px-2 md:px-4 py-3 md:py-5">
           {null !== problemId ?
             <ProblemElement
               problem={problems[problemId]}
               closable
+              withoutCategory
               setProblemId={setProblemId}
               onClose={onClose}
             />
@@ -37,6 +40,8 @@ export default function List({problemId, problemType, onClose, setProblemType, s
               setProblemType={setProblemType}
               setProblemId={setProblemId}
               problemType={problemType}
+              onlyElected={props.onlyElected}
+              setOnlyElected={props.setOnlyElected}
             />
           }
         </div>
