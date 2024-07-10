@@ -26,7 +26,7 @@ export default function List(props: ListProps) {
   return (
     <div ref={ref} className="fixed bottom-0 md:bottom-auto rounded-tr-lg rounded-tl-lg md:rounded-bl-lg md:rounded-br-lg left-0 right-0 md:left-[50px] md:top-[50px] md:max-w-[600px] max-h-[45%] md:max-h-[90vh] z-[1000] bg-white overflow-y-auto">
       <div className="container mx-auto max-w-[800px] break-words">
-        <div className="p-4 md:p-6">
+        <div className="px-2 md:px-4 py-3 md:py-5">
           {null !== problemId ?
             <ProblemElement
               problem={problems[problemId]}
