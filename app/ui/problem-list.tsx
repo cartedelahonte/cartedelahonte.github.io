@@ -75,7 +75,7 @@ export default function ProblemList({setProblemType, problemType, setProblemId}:
       )}
 
       <p className="mt-20">
-        Cartographie actualisée le 04/07/2024 à l'aide des informations disponibles à ce jour.
+        Cartographie actualisée le 10/07/2024 à l'aide des informations disponibles à ce jour.
         Partage autorisé sans limite.
         Contact : <i>lacartedelahonte@gmail.com</i>
       </p><br/>
