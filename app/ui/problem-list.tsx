@@ -83,8 +83,12 @@ export default function ProblemList(props: ProblemListProps) {
       )}
 
       <p className="mt-20">
-        Cartographie actualisée le 10/07/2024 à l'aide des informations disponibles à ce jour.
-        Partage autorisé sans limite.
+        Cartographie actualisée le 11/07/2024 à l'aide des informations disponibles à ce jour.
+        Partage autorisé sans limite. Les données sont disponibles&nbsp;
+        <a href="static/carte_de_la_honte_tableau.xlsx" className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank" rel="noopener noreferrer">
+          au format Excel
+        </a>
+        .
         Contact : <i>lacartedelahonte@gmail.com</i>
       </p><br/>
       <h5><i> La carte de la honte est une initiative étudiante indépendante et entièrement sourcée, publiée le 25 juin
