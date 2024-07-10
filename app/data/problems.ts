@@ -1,4 +1,4 @@
-import circonscriptionslegislativesp10_1_2 from "@/data/154circonscriptionslegislativesp10_1_2"
+import circonscriptionslegislatives from "@/data/156candidats"
 import {Problem} from "@/app/definitions";
 import {center} from '@turf/turf';
 
@@ -13,24 +13,24 @@ const problemMapping: {[key: string]: string} = {
 };
 
 export const problemFeatures = [
-  circonscriptionslegislativesp10_1_2,
+  circonscriptionslegislatives,
 ];
 
 let id = 0;
 for (let problemFeature of problemFeatures) {
   for (let feature of problemFeature.features) {
     const properties = feature.properties;
-    const circoName = properties["Candidats RN (1) (2) — Feuille 1_Field3"];
-    const candidateName = properties["Candidats RN (1) (2) — Feuille 1_Field4"];
-    const problemType = properties['q2wHide_Candidats RN (1) (2) — Feuille 1_Field14'];
+    const circoName = properties["elus final2 — Feuille 1_Field2"];
+    const candidateName = properties["elus final2 — Feuille 1_Field4"];
+    const problemType = properties['elus final2 — Feuille 1_Field13'];
 
     const candidateData = [];
     const sources = [];
-    for (let i = 5; i <= 30; i++) {
+    for (let i = 5; i <= 12; i++) {
       // @ts-ignore
-      if (properties[`Candidats RN (1) (2) — Feuille 1_Field${i}`]) {
+      if (properties[`elus final2 — Feuille 1_Field${i}`]) {
         // @ts-ignore
-        const data = properties[`Candidats RN (1) (2) — Feuille 1_Field${i}`];
+        const data = properties[`elus final2 — Feuille 1_Field${i}`];
         if (-1 !== data.indexOf('https://')) {
           const elements = data.split("\n");
           for (let element of elements) {
